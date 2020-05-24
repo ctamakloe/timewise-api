@@ -3,12 +3,18 @@ class Trip < ApplicationRecord
   has_many :trip_stations, dependent: :destroy
   has_many :stations, through: :trip_stations
 
+  validates :status, presence: true, 
+                     inclusion: { in: %w[upcoming in-progress complete], 
+                     message: '%{value} is not a valid trip status' }
+
+
   def origin_station
     trip_stations.origin.try(:station)
   end
 
   def origin
-    origin_station.try(:name)
+    #TODO: change to code only
+    origin_station.try(:name_with_code)
   end
 
   def destination_station
@@ -16,7 +22,8 @@ class Trip < ApplicationRecord
   end
 
   def destination
-    destination_station.try(:name)
+    #TODO: change to code only
+    destination_station.try(:name_with_code)
   end
 
   def transits
