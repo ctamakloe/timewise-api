@@ -1,0 +1,31 @@
+   #schema_search_path: myapp,sharedapp,public
+
+ default: &default
+   adapter: postgresql
+   encoding: unicode
+   # For details on connection pooling, see Rails configuration guide
+   # https://guides.rubyonrails.org/configuring.html#database-pooling
+   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+ 
+ development:
+   <<: *default
+   database: timewise_api_development
+ test:
+   <<: *default
+   database: timewise_api_test
+
+ # On Heroku and other platform providers, you may have a full connection URL
+ # available as an environment variable. For example:
+ #
+ #   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+ #
+ # You can use this database configuration with:
+ #
+ #   production:
+ #     url: <%= ENV['DATABASE_URL'] %>
+ #
+ production:
+   <<: *default
+   database: timewise_api_production
+   username: timewise_api
+   password: <%= ENV['TIME_WISE_DATABASE_PASSWORD'] %>
