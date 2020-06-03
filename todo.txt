@@ -1,0 +1,27 @@
+
+startStation
+endStation
+
+0. save start station and end station
+1. send station.codes to server
+String originStationCode; => Station.code stored locally
+String destinationStationCode; => Station.code
+
+2. create api to return train schedule info:
+trainSchedule:
+-> startStation, startTime -> start_station: name, code, time
+-> endStation, endTime -> end_station: name, code, time
+
+3. => create local trainSchedule records and populate step 2
+
+4. save TrainSchedule on select for radiobuttonlist
+
+5. set step 3 variables:
+travelDirection => outbound/return
+tripCategory => business/non_business
+tripPurpose => 'Visiting Sean at uni'
+
+6. call api to save trip plan, return trip id, use to navigate to trip page
+
+bearer token: 
+eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTEyMzQ4ODN9.T1oGGTHpJphkFLz_-MC4U2cgFPFoLMdeb1XV_DWM_Y8
