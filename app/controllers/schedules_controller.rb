@@ -31,8 +31,8 @@ class SchedulesController < ApplicationController
       st = DateTime.parse("#{start_time.to_s.split('T').first} #{(start_time.hour - diff - diff).abs}:#{rand(1..59)}")
       et = DateTime.parse("#{date_string} #{start_time.hour - diff}:#{rand(1..59)}")
       schedule = TrainSchedule.create(
-        start_station: start_station.name, 
-        end_station: end_station.name, 
+        start_station: start_station.code, 
+        end_station: end_station.code, 
         start_time: st,
         end_time: et,
       )
@@ -42,8 +42,8 @@ class SchedulesController < ApplicationController
       st = DateTime.parse("#{date_string} #{start_time.hour + diff}:#{rand(1..59)}")
       et = DateTime.parse("#{start_time.to_s.split('T').first} #{(start_time.hour + diff + diff).abs}:#{rand(1..59)}")
       schedule = TrainSchedule.create(
-        start_station: start_station.name, 
-        end_station: end_station.name, 
+        start_station: start_station.code, 
+        end_station: end_station.code, 
         start_time: st,
         end_time: et,
       )
