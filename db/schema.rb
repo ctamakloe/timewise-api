@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_03_012456) do
+ActiveRecord::Schema.define(version: 2020_06_04_123737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 2020_06_03_012456) do
   end
 
   create_table "train_schedules", force: :cascade do |t|
-    t.string "start_station"
-    t.string "end_station"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.string "start_station_code"
+    t.string "end_station_code"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -45,11 +45,13 @@ ActiveRecord::Schema.define(version: 2020_06_03_012456) do
     t.bigint "user_id", null: false
     t.time "departs_at"
     t.time "arrives_at"
-    t.string "purpose"
+    t.string "trip_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "description"
+    t.string "purpose"
     t.string "status", default: "upcoming"
+    t.bigint "train_schedule_id"
+    t.index ["train_schedule_id"], name: "index_trips_on_train_schedule_id"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -63,5 +65,6 @@ ActiveRecord::Schema.define(version: 2020_06_03_012456) do
 
   add_foreign_key "trip_stations", "stations"
   add_foreign_key "trip_stations", "trips"
+  add_foreign_key "trips", "train_schedules"
   add_foreign_key "trips", "users"
 end

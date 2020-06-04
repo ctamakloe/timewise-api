@@ -1,17 +1,27 @@
 class TrainSchedule < ApplicationRecord
-  def start_station_name
-    Station.find_by_code(self.start_station).name
+  has_many :trips
+
+  def start_station
+    Station.find_by_code(self.start_station_code)
   end
 
-  def start_station_code
-    self.start_station
+  def end_station
+    Station.find_by_code(self.end_station_code)
+  end
+
+  def start_station_name
+    start_station.name
   end
 
   def end_station_name
-    Station.find_by_code(self.end_station).name
+    end_station.name
   end
 
-  def end_station_code
-    self.end_station
+  def start_time
+    self.starts_at
+  end
+
+  def end_time
+    self.ends_at
   end
 end

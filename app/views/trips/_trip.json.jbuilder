@@ -4,8 +4,8 @@ json.(trip,
       :destination, 
       :departs_at, 
       :arrives_at,
+      :trip_type, 
       :purpose,
-      :description, 
       :status
      )
 

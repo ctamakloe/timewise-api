@@ -18,7 +18,8 @@ class TripsController < ApplicationController
     @trip = current_user.trips.new(trip_params)
 
     if @trip.save
-      render json: @trip, status: :created, location: @trip
+      # render json: @trip, status: :created, location: @trip
+      render 'show', status: :created
     else
       render json: @trip.errors, status: :unprocessable_entity
     end
@@ -33,26 +34,32 @@ class TripsController < ApplicationController
     end
   end
 
-   # DELETE /trips/1
-   def destroy
-     @trip.destroy
-   end
+  # DELETE /trips/1
+  def destroy
+    @trip.destroy
+  end
 
-   private
-     # Use callbacks to share common setup or constraints between actions.
-     def set_trip
-       @trip = current_user.trips.find(params[:id])
-     end
+  private
 
-     # Only allow a trusted parameter "white list" through.
-     def trip_params
-       params.require(:trip).permit(
-         :origin_station_code, 
-         :destination_station_code,
-         :departs_on, 
-         :departs_at, 
-         :arrives_at, 
-         :purpose, 
-       )
-     end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trip
+    @trip = current_user.trips.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def trip_params
+    params.require(:trip).permit(
+        # :origin_station_code,
+        # :destination_station_code,
+        # :departs_on,
+        # :departs_at,
+        # :arrives_at,
+        # :purpose,
+
+        :train_schedule_id,
+        :trip_type,
+        :direction,
+        :purpose,
+    )
+  end
 end

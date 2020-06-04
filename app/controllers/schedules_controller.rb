@@ -22,7 +22,7 @@ class SchedulesController < ApplicationController
 
     # if not train schedules on requested day
     date_string = start_time.to_s.split('T').first
-    @schedules = TrainSchedule.where(start_time: start_time.all_day).order(start_time: 'asc')
+    @schedules = TrainSchedule.where(starts_at: start_time.all_day).order(starts_at: 'asc')
     return @schedules if @schedules.present?
 
     # create some schedules 
@@ -33,8 +33,8 @@ class SchedulesController < ApplicationController
       schedule = TrainSchedule.create(
         start_station: start_station.code, 
         end_station: end_station.code, 
-        start_time: st,
-        end_time: et,
+        starts_at: st,
+        ends_at: et,
       )
     end
     # after time
@@ -44,10 +44,10 @@ class SchedulesController < ApplicationController
       schedule = TrainSchedule.create(
         start_station: start_station.code, 
         end_station: end_station.code, 
-        start_time: st,
-        end_time: et,
+        starts_at: st,
+        ends_at: et,
       )
     end
-    @schedules = TrainSchedule.where(start_time: start_time.all_day).order(start_time: 'asc')
+    @schedules = TrainSchedule.where(starts_at: start_time.all_day).order(starts_at: 'asc')
   end
 end
