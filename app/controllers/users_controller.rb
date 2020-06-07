@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    render json: { error: 'Failed to create user' }, status: :not_acceptable unless @user.save 
+    render json: { error: 'Failed to create user', messages: @user.errors.full_messages }, status: :not_acceptable unless @user.save 
 
     @token = JsonWebToken.encode(user_id: @user.id)
     # render json: { token: @token }, status: :created
@@ -14,6 +14,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:name, :email, :password)
   end
 end

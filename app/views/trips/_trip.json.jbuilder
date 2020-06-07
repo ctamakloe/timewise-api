@@ -6,6 +6,8 @@ json.(trip,
       :arrives_at,
       :trip_type, 
       :purpose,
-      :status
+      :travel_direction,
+      :status,
+      :rating
      )
 

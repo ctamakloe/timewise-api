@@ -5,7 +5,7 @@ class Trip < ApplicationRecord
   has_many :stations, through: :trip_stations
 
   validates :status, presence: true,
-            inclusion: {in: %w[upcoming in-progress complete],
+            inclusion: {in: %w[upcoming in-progress completed],
                         message: '%{value} is not a valid trip status'}
 
   after_create :retrieve_schedule
@@ -56,5 +56,6 @@ class Trip < ApplicationRecord
       self.origin_station = schedule.start_station
       self.destination_station = schedule.end_station
     end
+    save
   end
 end

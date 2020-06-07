@@ -19,7 +19,7 @@ class TripsController < ApplicationController
 
     if @trip.save
       # render json: @trip, status: :created, location: @trip
-      render 'show', status: :created
+      render 'trips/show', status: :created
     else
       render json: @trip.errors, status: :unprocessable_entity
     end
@@ -28,7 +28,8 @@ class TripsController < ApplicationController
   # PATCH/PUT /trips/1
   def update
     if @trip.update(trip_params)
-      render json: @trip
+      # render json: @trip
+      render 'trips/show' #, status: :created
     else
       render json: @trip.errors, status: :unprocessable_entity
     end
@@ -52,14 +53,18 @@ class TripsController < ApplicationController
         # :origin_station_code,
         # :destination_station_code,
         # :departs_on,
-        # :departs_at,
-        # :arrives_at,
         # :purpose,
 
-        :train_schedule_id,
+        :id,
+        :departs_at,
+        :arrives_at,
+
         :trip_type,
-        :direction,
         :purpose,
+        :status, 
+        :travel_direction,
+        :train_schedule_id,
+        :rating, 
     )
   end
 end
