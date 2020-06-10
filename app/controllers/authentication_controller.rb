@@ -7,7 +7,7 @@
 
      if command.success?
        @token = command.result
-       @user = User.find_by_email(params[:email])
+       @user = User.find_by_email(params[:email].try(:downcase))
 
        # render json: { auth_token: command.result }
      else
