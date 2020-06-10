@@ -8,14 +8,14 @@ class Trip < ApplicationRecord
             inclusion: {in: %w[upcoming in-progress completed],
                         message: '%{value} is not a valid trip status'}
 
-  # Trip stations and times are created from a TrainSchedule, 
+  # Trip stations and times are created from a TrainSchedule,
   # not by setting attributes directly 
   # So to update, guess you'd need to supply a new TrainSchedule
   # TODO: implement update train times 
   after_create :retrieve_schedule
 
   # getters 
-  
+
   def origin_station_name
     origin_station.try(:name)
   end
@@ -75,11 +75,12 @@ class Trip < ApplicationRecord
   def retrieve_schedule
     schedule = self.train_schedule
     if schedule
-      self.departs_at = schedule.starts_at
-      self.arrives_at = schedule.ends_at
       self.origin_station = schedule.start_station
       self.destination_station = schedule.end_station
+
+      self.departs_at = schedule.starts_at
+      self.arrives_at = schedule.ends_at
+      save
     end
-    save
   end
 end

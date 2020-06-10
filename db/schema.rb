@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_05_160434) do
+ActiveRecord::Schema.define(version: 2020_06_10_132950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(version: 2020_06_05_160434) do
 
   create_table "trips", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.time "departs_at"
-    t.time "arrives_at"
     t.string "trip_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -53,6 +51,8 @@ ActiveRecord::Schema.define(version: 2020_06_05_160434) do
     t.bigint "train_schedule_id"
     t.string "travel_direction"
     t.string "rating", default: "0"
+    t.datetime "departs_at"
+    t.datetime "arrives_at"
     t.index ["train_schedule_id"], name: "index_trips_on_train_schedule_id"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
