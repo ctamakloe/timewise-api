@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost', 'localhost:52528', "timewiseapi.herokuapp.com"
+    origins 'localhost:59965', 'localhost:59965:*', "timewiseapi.herokuapp.com", 'timewise.surge.sh'
 
 
     resource '*',
@@ -16,9 +16,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
  end
 
-Rails.application.config.hosts << "localhost"
-Rails.application.config.hosts << "localhost:52528"
-Rails.application.config.hosts << "timewiseapi.herokuapp.com"
+# Rails.application.config.hosts << "localhost:59965:*"
+# Rails.application.config.hosts << "timewiseapi.herokuapp.com"
+Rails.application.config.hosts << "timewise.surge.sh"
 
 
 
