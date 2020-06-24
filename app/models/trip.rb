@@ -75,6 +75,10 @@ class Trip < ApplicationRecord
     self.train_schedule.get_rating_cells
   end
 
+  def operator_name
+    self.train_schedule.try(:operator_name)
+  end
+
   private
 
   def retrieve_schedule
