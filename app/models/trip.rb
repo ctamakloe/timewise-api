@@ -14,6 +14,7 @@ class Trip < ApplicationRecord
   # TODO: implement update train times 
   after_create :retrieve_schedule
 
+
   # getters 
 
   def origin_station_name
@@ -70,10 +71,15 @@ class Trip < ApplicationRecord
     TripStation.create(function: 'destination', trip: self, station_id: station.id)
   end
 
+  def rating_cells
+    self.train_schedule.get_rating_cells
+  end
+
   private
 
   def retrieve_schedule
     schedule = self.train_schedule
+
     if schedule
       self.origin_station = schedule.start_station
       self.destination_station = schedule.end_station

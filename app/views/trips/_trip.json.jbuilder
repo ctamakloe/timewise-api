@@ -11,6 +11,6 @@ json.(trip,
       :travel_direction,
       :status,
       :rating, 
-
      )
+json.rating_cells trip.rating_cells, partial: 'ratings/rating', as: :rating
 

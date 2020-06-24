@@ -10,16 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_003653) do
+ActiveRecord::Schema.define(version: 2020_06_23_225149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "rating_cells", force: :cascade do |t|
+    t.bigint "train_schedule_id", null: false
+    t.string "rating"
+    t.string "stop_name"
+    t.string "stop_code"
+    t.datetime "stops_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["train_schedule_id"], name: "index_rating_cells_on_train_schedule_id"
+  end
 
   create_table "stations", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "stops", force: :cascade do |t|
+    t.bigint "train_schedule_id", null: false
+    t.string "stop_index"
+    t.string "stop_type"
+    t.string "station_code"
+    t.string "station_name"
+    t.string "platform"
+    t.datetime "departs_at"
+    t.datetime "arrives_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["train_schedule_id"], name: "index_stops_on_train_schedule_id"
   end
 
   create_table "train_schedules", force: :cascade do |t|
@@ -70,6 +95,8 @@ ActiveRecord::Schema.define(version: 2020_06_15_003653) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "rating_cells", "train_schedules"
+  add_foreign_key "stops", "train_schedules"
   add_foreign_key "trip_stations", "stations"
   add_foreign_key "trip_stations", "trips"
   add_foreign_key "trips", "train_schedules"

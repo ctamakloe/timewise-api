@@ -17,6 +17,9 @@ class TripsController < ApplicationController
   def create
     @trip = current_user.trips.new(trip_params)
 
+    schedule = TrainSchedule.find(trip_params[:train_schedule_id])
+    schedule.get_rating_cells if schedule
+
     if @trip.save
       # render json: @trip, status: :created, location: @trip
       render 'trips/show', status: :created
@@ -61,10 +64,10 @@ class TripsController < ApplicationController
 
         :trip_type,
         :purpose,
-        :status, 
+        :status,
         :travel_direction,
         :train_schedule_id,
-        :rating, 
+        :rating,
     )
   end
 end
