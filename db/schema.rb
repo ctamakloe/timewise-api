@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_225149) do
+ActiveRecord::Schema.define(version: 2020_09_23_195031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "population_days", force: :cascade do |t|
+    t.bigint "population_spec_id", null: false
+    t.string "name"
+    t.integer "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["population_spec_id"], name: "index_population_days_on_population_spec_id"
+  end
+
+  create_table "population_hours", force: :cascade do |t|
+    t.bigint "population_day_id", null: false
+    t.integer "hour"
+    t.integer "population_percent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["population_day_id"], name: "index_population_hours_on_population_day_id"
+  end
+
+  create_table "population_specs", force: :cascade do |t|
+    t.bigint "station_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["station_id"], name: "index_population_specs_on_station_id"
+  end
 
   create_table "rating_cells", force: :cascade do |t|
     t.bigint "train_schedule_id", null: false
@@ -95,6 +120,9 @@ ActiveRecord::Schema.define(version: 2020_06_23_225149) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "population_days", "population_specs"
+  add_foreign_key "population_hours", "population_days"
+  add_foreign_key "population_specs", "stations"
   add_foreign_key "rating_cells", "train_schedules"
   add_foreign_key "stops", "train_schedules"
   add_foreign_key "trip_stations", "stations"
