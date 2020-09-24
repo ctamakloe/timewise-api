@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   resources :schedules, only: [:index] do
     resources :stops, only: [:index]
   end
+
+  resources :population_specs, only: [:create]
+  #resourcs :stations, only: [:show, :update]
 end
