@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   end
 
   resources :population_specs, only: [:create]
-  #resourcs :stations, only: [:show, :update]
+  resources :stations, only: [:show]
 end
